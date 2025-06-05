@@ -1,0 +1,151 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+:root {
+  --radius: 0.625rem;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Add a subtle pattern for the hero background if no image is provided */
+.hero-pattern {
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAADx0lEQVR4nO2ZXYhNURTH997HjI8ZkY8QGRMpJSVeUJ48oCTJx4OPkpKUJx5ESh5QHigPPDApD5QUT4pSQiIPhJR8lfLx4GvmPzPr1661zzlz7r3n3HNn7jR/td/mdP/WWmvttdfe915BkIeuri5Ip/e5Ttxt9aPruirMqDvhH2bUCQ9cCT3dLfCpJ+vRPXoDvu33ezpdcyXmqnuZ3boS7kIQdLpMvh5thdQaDKtImMc9Z9NxKXQrfPxnRBKnhN3cEXW7LRiTYfIK7YX0eeZUzFfXQ5sFHbBam/w926q0t6aTskxO0RUDnDFThh1O2KR1lTBN8w3csbyDnYIj+qGbRREb6kXAFw3OVmtMkZckZTHOs5gVxdpTS6PtVGyOQiLpoRPWiDBfzI6tsghO25OlG6bFFBM1xNrYPUfg89Jgx9GtaVSMpoKjpMOh2KJfpCVKx9qx2ErqsABhqCdXldpUQaJJCtlfRvzyxK9rn2Gh5hYSMZmyOBIYYS9L4GdjfKiUpe7TDmGONE7Rqzwj5T9gx19CbHXMLY20N4PTdMwsvRGj3qCXjYmp+kH4x/yu1LxiIhnhBSGnTGI60MsZc8vMzVJChoSvhk9ac69JPQmcc18wUchNM74pf0aG5sh8g/C50YRcofEjRi5seZDIK9fy/F/4wuwfNPH7+L+pJbxZLQE24U/CjUIuCX905VsTvnfFb1z5iLTgd4TcETKsfcYJfzUx8/X9xGDLd2TkBok5Kvxl8Gr+aTQhlwmjTY7vkvOm9ch1muYES7ikiEi2Gc0ti5stXrB7itSR0N43TfXQCbtsAucKOVqBkHaZvhq/Q8Z3QREhTXrcRITMN+DJBRstsl8K2Sfi3envcJ0JnmJiBgjZr/eHPuurjtWpi/3Fl5wvaq0jk+zG+yIyu5SQWVKGkFH25voiQvpL9lJHrIgYXo3fGx4PRW6XPMJM5Jk1IVtIYYsWRsjP58/JsW8+nsPuaDshvZUhPYVeJYkyR+RX7YVltrC9dLuj2QqVPIYvvIWM0gupDyJkh6lH1xNduPwceadXLR5q2R6lJGZrV8NB2r4WVegLC97uVLhr5ncpKLAdnv8eGXYkpru9DD/vTZA7s3WLWx7xJ9Pzl42gq4BIqR7Sw18gmOlNzNhWKAzAF4/eeeotUqu0pQqEbBZyQMhO4Y94YEYXvHH4EyfUW43NAb+YcVgFQtKSm+OpiGwN+EePpDXvKPYQX1v5nj0PEy5mf5yOR+YrJ3Kq++YKhPxI7tyL4QW8r1V85pGHij8kVfQRJ+jEMSGLgrwjj38Ky9KGjlSVKQAAAABJRU5ErkJggg==");
+}
+
+/* Hide scrollbars for slider components */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Custom utilities */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
