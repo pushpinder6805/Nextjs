@@ -158,6 +158,13 @@ export default async function CityPage({ params }: CityPageProps) {
             />
           </div>
         </div>
+        
+        {/* Category Section (Dynamic) */}
+        <div className="w-full bg-gray-50">
+          {filteredCategoryListings.map(({ category, listings }) => (
+            <CategorySection key={category.id} category={category} listings={listings} />
+          ))}
+        </div>
 
         {/* Other Cities Section */}
         {cities.length > 1 && (
@@ -182,12 +189,7 @@ export default async function CityPage({ params }: CityPageProps) {
           </div>
         )}
 
-        {/* Category Section (Dynamic) */}
-        <div className="w-full bg-gray-50">
-          {filteredCategoryListings.map(({ category, listings }) => (
-            <CategorySection key={category.id} category={category} listings={listings} />
-          ))}
-        </div>
+        
 
         {/* Forum Activity Section (Optional to implement later) */}
       </div>
