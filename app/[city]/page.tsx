@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { getListings } from '@/lib/api/listings';
 import { getCategories } from '@/lib/api/categories';
+import { CategorySection } from '@/components/CategorySection';
 import { getCities, getCityBySlug } from '@/lib/api/cities';
 import { getPromotions } from '@/lib/api/promotions';
 import ListingGrid from '@/components/listings/ListingGrid';
@@ -169,6 +170,12 @@ export default async function CityPage({ params }: CityPageProps) {
           </div>
         )}
         
+        // Inside your component's return
+<div className="w-full bg-gray-50">
+  {filteredCategoryListings.map(({ category, listings }) => (
+    <CategorySection key={category.id} category={category} listings={listings} />
+  ))}
+</div>
 
         {/* Forum Activity Section */}
         
