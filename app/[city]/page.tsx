@@ -128,38 +128,7 @@ export default async function CityPage({ params }: CityPageProps) {
           compact={true}
         />
 
-        {/* Categories Section */}
-        {categories.length > 0 && (
-          <div className="w-full py-12 bg-gray-50">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="text-center mb-8">
-                <h2 className="text-2xl font-bold text-gray-800 mb-4">Browse by Category in {cityData.name}</h2>
-                <p className="text-gray-600">Find exactly what you're looking for</p>
-              </div>
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                {categories.map(category => (
-                  <Link
-                    key={category.id}
-                    href={`/${citySlug}/${category.slug}`}
-                    className="bg-white border border-gray-200 hover:border-purple-300 hover:shadow-md transition-all p-6 rounded-lg text-center group"
-                  >
-                    <div className="text-gray-700 group-hover:text-purple-600 font-medium">
-                      {category.name}
-                    </div>
-                  </Link>
-                ))}
-              </div>
-              <div className="text-center mt-8">
-                <Link
-                  href={`/all`}
-                  className="text-purple-600 hover:text-purple-500 font-medium"
-                >
-                  View all categories across all cities →
-                </Link>
-              </div>
-            </div>
-          </div>
-        )}
+       
 
         {/* Featured Listings Section - Full Width */}
         <div className="w-full bg-gray-50 py-12">
