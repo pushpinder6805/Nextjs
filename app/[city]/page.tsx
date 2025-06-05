@@ -21,18 +21,17 @@ export const dynamic = 'force-dynamic';
 // Helper function to build query strings
 const buildQueryString = (params: Record<string, string | undefined>) => {
   const urlParams = new URLSearchParams();
-  
+
   Object.entries(params).forEach(([key, value]) => {
     if (value) urlParams.append(key, value);
   });
-  
+
   const queryString = urlParams.toString();
   return queryString ? `?${queryString}` : '';
 };
 
 // Mock forum data - replace with actual API calls when available
 const getForumTopics = async () => {
-  // This would be replaced with an actual API call to Discourse
   return [
     { id: 1, title: "Where to find best massage in NYC?", replies: 142, author: "JohnDoe" },
     { id: 2, title: "Rate your recent experience", replies: 89, author: "JaneSmith" },
@@ -43,7 +42,6 @@ const getForumTopics = async () => {
 };
 
 const getTopPosters = async () => {
-  // This would be replaced with an actual API call to Discourse
   return [
     { rank: 1, username: "JohnDoe", posts: 346 },
     { rank: 2, username: "SuperUser", posts: 289 },
@@ -54,7 +52,6 @@ const getTopPosters = async () => {
 };
 
 const getTopPointEarners = async () => {
-  // This would be replaced with an actual API call to Discourse
   return [
     { rank: 1, username: "ExpertUser", points: 4890 },
     { rank: 2, username: "JohnDoe", points: 3560 },
@@ -72,23 +69,21 @@ interface CityPageProps {
 
 export default async function CityPage({ params }: CityPageProps) {
   const { city: citySlug } = await params;
-  
-  // First, verify the city exists
+
   try {
     const cityResponse = await getCityBySlug(citySlug);
     const cityApiData = cityResponse.data;
     const cityData = Array.isArray(cityApiData) && cityApiData.length > 0 ? cityApiData[0] : cityApiData;
-    
+
     if (!cityData) {
       notFound();
     }
 
-    // Fetch data in parallel
     const [
-      featuredListingsResponse, 
-      latestListingsResponse, 
-      categoriesResponse, 
-      citiesResponse, 
+      featuredListingsResponse,
+      latestListingsResponse,
+      categoriesResponse,
+      citiesResponse,
       promotionsResponse,
       forumTopics,
       topPosters,
@@ -110,25 +105,41 @@ export default async function CityPage({ params }: CityPageProps) {
     const cities = citiesResponse.data;
     const promotions = promotionsResponse.data;
 
+    // ⬇️ Build categoryListings dynamically after fetching categories
+    const categoryListings = await Promise.all(
+      categories.map(async (category) => {
+        try {
+          const response = await getListings({
+            category: category.slug,
+            city: citySlug,
+            pageSize: 50,
+            approvalStatus: 'published'
+          });
+          return { category, listings: response.data || [] };
+        } catch {
+          return { category, listings: [] };
+        }
+      })
+    );
+
+    const filteredCategoryListings = categoryListings.filter(({ listings }) => listings.length > 0);
+
     return (
       <div className="flex flex-col">
         {/* Hero Banner - Full Width */}
         <div className="w-full bg-gradient-to-r from-purple-600 to-indigo-700 relative">
-         
-       {promotions.length > 0 && (
-         <PromotionSlider promotions={promotions} />
-       )}
-         
-       </div>
+          {promotions.length > 0 && (
+            <PromotionSlider promotions={promotions} />
+          )}
+        </div>
 
         {/* Latest Listings Section - Full Width with Slider */}
-        <ListingSlider 
-          listings={latestListings} 
-          title={`Latest Listings in ${cityData.name}`} 
-          viewAllLink={`/listings?city=${citySlug}`} 
+        <ListingSlider
+          listings={latestListings}
+          title={`Latest Listings in ${cityData.name}`}
+          viewAllLink={`/listings?city=${citySlug}`}
           compact={true}
         />
-
 
         {/* Featured Listings Section - Full Width */}
         <div className="w-full bg-gray-50 py-12">
@@ -139,9 +150,9 @@ export default async function CityPage({ params }: CityPageProps) {
                 View All
               </Link>
             </div>
-            <ListingGrid 
-              listings={featuredListings} 
-              compact={true} 
+            <ListingGrid
+              listings={featuredListings}
+              compact={true}
               columns={6}
             />
           </div>
@@ -169,15 +180,19 @@ export default async function CityPage({ params }: CityPageProps) {
             </div>
           </div>
         )}
-        
-       
 
-        {/* Forum Activity Section */}
-        
+        {/* Category Section (Dynamic) */}
+        <div className="w-full bg-gray-50">
+          {filteredCategoryListings.map(({ category, listings }) => (
+            <CategorySection key={category.id} category={category} listings={listings} />
+          ))}
+        </div>
+
+        {/* Forum Activity Section (Optional to implement later) */}
       </div>
     );
   } catch (error) {
     console.error('Error fetching city data:', error);
     notFound();
   }
-} 
+}
