@@ -168,6 +168,12 @@ export default async function CityPage({ params }: CityPageProps) {
             </div>
           </div>
         )}
+         {/* Category Sections */}
+        <div className="w-full bg-gray-50">
+          {filteredCategoryListings.map(({ category, listings }) => (
+            <CategorySection key={category.id} category={category} listings={listings} />
+          ))}
+        </div>
         
 
         {/* Forum Activity Section */}
