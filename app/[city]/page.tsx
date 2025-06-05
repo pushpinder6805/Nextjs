@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { getListings } from '@/lib/api/listings';
 import { getCategories } from '@/lib/api/categories';
-import { CategorySection } from '@/components/CategorySection';
+import CategorySection from '@/components/CategorySection';
 import { getCities, getCityBySlug } from '@/lib/api/cities';
 import { getPromotions } from '@/lib/api/promotions';
 import ListingGrid from '@/components/listings/ListingGrid';
