@@ -18,16 +18,6 @@ export const revalidate = 60;
 // Ensure this page is always dynamic for immediate updates
 export const dynamic = 'force-dynamic';
 
-const categoryListings = await Promise.all(
-  categories.map(async (category) => {
-    const response = await getListings({ category: category.slug, pageSize: 50 });
-    return { category, listings: response.data };
-  })
-);
-
-const filteredCategoryListings = categoryListings.filter(({ listings }) => listings.length > 0);
-
-
 // Helper function to build query strings
 const buildQueryString = (params: Record<string, string | undefined>) => {
   const urlParams = new URLSearchParams();
@@ -180,12 +170,7 @@ export default async function CityPage({ params }: CityPageProps) {
           </div>
         )}
         
-        // Inside your component's return
-<div className="w-full bg-gray-50">
-  {filteredCategoryListings.map(({ category, listings }) => (
-    <CategorySection key={category.id} category={category} listings={listings} />
-  ))}
-</div>
+       
 
         {/* Forum Activity Section */}
         
