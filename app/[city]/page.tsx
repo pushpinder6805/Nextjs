@@ -110,6 +110,7 @@ export default async function CityPage({ params }: CityPageProps) {
       categories.map(async (category) => {
         try {
           const response = await getListings({
+            page: 1, // ✅ This is required
             category: category.slug,
             city: citySlug,
             pageSize: 50,
