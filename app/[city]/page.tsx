@@ -146,7 +146,29 @@ export default async function CityPage({ params }: CityPageProps) {
           </div>
         </div>
 
-       
+        {/* Other Cities Section */}
+        {cities.length > 1 && (
+          <div className="w-full py-12">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="text-center mb-8">
+                <h2 className="text-2xl font-bold text-gray-800 mb-4">Explore Other Cities</h2>
+                <p className="text-gray-600">Browse listings in other available cities</p>
+              </div>
+              <div className="flex flex-wrap justify-center gap-3">
+                {cities.filter(city => city.slug !== citySlug).map(city => (
+                  <Link
+                    key={city.id}
+                    href={`/${city.slug}`}
+                    className="bg-white border border-gray-200 hover:border-purple-300 hover:shadow-md transition-all px-6 py-3 rounded-lg text-gray-700 hover:text-purple-600 font-medium"
+                  >
+                    {city.name}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+        
 
         {/* Forum Activity Section */}
         
