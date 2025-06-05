@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { notFound } from 'next/navigation';
 import { getListings } from '@/lib/api/listings';
 import { getCategories } from '@/lib/api/categories';
 import { getCities, getCityBySlug } from '@/lib/api/cities';
