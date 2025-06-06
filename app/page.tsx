@@ -144,25 +144,24 @@ export default async function HomePage() {
     const latestListings = latestListingsResponse.data || [];
 
     // Fetch all listings for each category separately (no overflow logic)
-    const categoryListings = await Promise.all(
-      categories
-        .filter(category => ['test', 'test2'].includes(category.slug)) // Include both test categories for proper testing
-        .map(async (category) => {
-          try {
-            const response = await getListings({ 
-              page: 1, 
-              pageSize: 50, // Get more listings to show all in category
-              category: category.slug,
-              city: firstCity?.slug,
-              approvalStatus: "published"
-            });
-            return { category, listings: response.data || [] };
-          } catch (error) {
-            console.error(`Error fetching listings for category ${category.slug}:`, error);
-            return { category, listings: [] };
-          }
-        })
-    );
+   const categoryListings = await Promise.all(
+  categories.map(async (category) => {
+    try {
+      const response = await getListings({ 
+        page: 1, 
+        pageSize: 50,
+        category: category.slug,
+        city: firstCity?.slug,
+        approvalStatus: "published"
+      });
+      return { category, listings: response.data || [] };
+    } catch (error) {
+      console.error(`Error fetching listings for category ${category.slug}:`, error);
+      return { category, listings: [] };
+    }
+  })
+);
+
 
     // Filter out categories with no listings
     const filteredCategoryListings = categoryListings.filter(({ listings }) => listings.length > 0);
