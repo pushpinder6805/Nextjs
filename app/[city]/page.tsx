@@ -142,22 +142,6 @@ export default async function CityPage({ params }: CityPageProps) {
           compact={true}
         />
 
-        {/* Featured Listings Section - Full Width */}
-        <div className="w-full bg-gray-50 py-12">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-between items-center mb-6">
-              <h2 className="text-2xl font-bold text-gray-800">Featured Listings in {cityData.name}</h2>
-              <Link href={`/listings${buildQueryString({ city: citySlug, featured: 'true' })}`} className="text-purple-600 hover:text-purple-500 font-medium">
-                View All
-              </Link>
-            </div>
-            <ListingGrid
-              listings={featuredListings}
-              compact={true}
-              columns={6}
-            />
-          </div>
-        </div>
         
         {/* Category Section (Dynamic) */}
         <div className="w-full bg-gray-50">
