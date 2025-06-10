@@ -90,7 +90,7 @@ export default async function CityPage({ params }: CityPageProps) {
       topPointEarners
     ] = await Promise.all([
       getListings({ page: 1, pageSize: 24, featured: true, city: citySlug }),
-      getListings({ page: 1, pageSize: 24, city: citySlug }),
+      getListings({ page: 1, pageSize: 10, city: citySlug }),
       getCategories(),
       getCities(),
       getPromotions('home'),
